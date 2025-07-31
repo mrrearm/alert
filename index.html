@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avviso Disinfestazione - Castellammare di Stabia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 4px solid #FFD700;
+        }
+
+        .siren {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            position: relative;
+            background: #333;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+        }
+
+        .siren::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #FF0000 0%, #FF0000 50%, #0000FF 50%, #0000FF 100%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px rgba(255,0,0,0.5);
+        }
+
+        .siren::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .instructions {
+            background: #FFF8DC;
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .instructions h3 {
+            color: #1e3c72;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .instructions li {
+            color: #333;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .instructions li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .comune {
+            color: #1e3c72;
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-sindaco {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1e3c72;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.4);
+        }
+
+        .btn-sindaco:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,215,0,0.6);
+        }
+
+        .btn-stabiesi {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            box-shadow: 0 4px 15px rgba(30,60,114,0.4);
+        }
+
+        .btn-stabiesi:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30,60,114,0.6);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .siren {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .siren::before {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+            }
+            
+            .btn {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+
+
+
+        .countdown-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(30,60,114,0.8);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .active-status {
+            color: #4CAF50 !important;
+            font-weight: bold;
+        }
+
+        .waiting-status {
+            color: #FF9800 !important;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Visualizzazione sempre attiva -->
+    <div class="container" id="mainContainer">
+        <div class="siren"></div>
+        
+        <h1 class="main-title">DISINFESTAZIONE ZANZARE IN CORSO</h1>
+        
+        <div class="instructions">
+            <h3>⏰ Alert Attivo dalle 22:30 del 31/07/2025</h3>
+            <p><strong>Stato:</strong> <span id="statusText">In attesa</span></p>
+            <div id="countdown" class="countdown-display"></div>
+            
+            <h4 style="margin-top: 20px; margin-bottom: 15px;">Istruzioni Importanti:</h4>
+            <ul>
+                <li>Chiudere finestre e balconi</li>
+                <li>Evitare di uscire durante la disinfestazione</li>
+                <li>Evitare di esporre cibi e animali durante la disinfestazione</li>
+            </ul>
+            
+            <div class="comune">Comune di Castellammare di Stabia</div>
+            
+            <div class="buttons-container">
+                <a href="https://www.facebook.com/share/19NaaMxsAo/" target="_blank" class="btn btn-sindaco">
+                    👨‍💼 Sindaco: Luigi Vicinanza
+                </a>
+                <a href="https://www.facebook.com/share/174f8boFSr/" target="_blank" class="btn btn-stabiesi">
+                    👥 Stabiesi al 100%
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkTime() {
+            const now = new Date();
+            const targetDate = new Date('2025-07-31T22:30:00');
+            const statusText = document.getElementById('statusText');
+            const countdownEl = document.getElementById('countdown');
+            
+            // Per test immediato, decommentare la riga seguente:
+            // targetDate = new Date(now.getTime() + 5000); // Attiva dopo 5 secondi
+            
+            if (now >= targetDate) {
+                statusText.textContent = 'ATTIVO - Disinfestazione in corso';
+                statusText.className = 'active-status';
+                countdownEl.textContent = 'ALERT ATTIVO';
+                countdownEl.style.background = 'rgba(76,175,80,0.8)';
+                
+                // Suono di allerta (se supportato dal browser)
+                try {
+                    const audio = new Audio('data:audio/wav;base64,UklGRnoKAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoKAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAoUXrTp66hVFApGn+DyvmocBz6X2fPJeyYGK4DN8tiIOAcZZ7zs5qNODwxPqeL2uGUcBDaP2PLNeSsFJnvJ8N2QQAo=');
+                    audio.play();
+                } catch (e) {
+                    console.log('Audio non supportato');
+                }
+            } else {
+                statusText.textContent = 'In attesa dell\'orario di attivazione';
+                statusText.className = 'waiting-status';
+                
+                // Aggiorna il countdown
+                const timeDiff = targetDate - now;
+                const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+                
+                let countdownText = '';
+                if (days > 0) {
+                    countdownText = `${days}g ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                } else {
+                    countdownText = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                countdownEl.textContent = countdownText;
+                countdownEl.style.background = 'rgba(30,60,114,0.8)';
+            }
+        }
+
+        // Controlla ogni secondo
+        setInterval(checkTime, 1000);
+        checkTime(); // Controllo iniziale
+    </script>
+</body>
+</html>
